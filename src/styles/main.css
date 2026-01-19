@@ -1,12 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
+
 :root {
-    --bg-color: #0d0d12;
-    --text-color: #ffffff;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --primary-neon: #00f3ff;
-    --secondary-neon: #bc13fe;
-    --font-main: 'Inter', system-ui, sans-serif;
-    --shadow-neon: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3);
+    /* Deep Blue Palette */
+    --bg-color-start: #020024;
+    --bg-color-mid: #090979;
+    --bg-color-end: #00d4ff;
+    --accent-cyan: #00F0FF;
+    --accent-pink: #FF0055;
+    --accent-gold: #FFD700;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(0, 240, 255, 0.3);
+    --font-main: 'Outfit', sans-serif;
 }
 
 * {
@@ -16,17 +20,15 @@
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background: radial-gradient(circle at 50% 50%, #090979 0%, #020024 100%);
+    color: #fff;
     font-family: var(--font-main);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image:
-        radial-gradient(circle at 10% 20%, rgba(188, 19, 254, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 20%);
     overflow: hidden;
+    /* position: relative; */
 }
 
 #root {
@@ -36,205 +38,610 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-/* Glassmorphism utility */
-.glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border-radius: 16px;
-}
-
-.container {
-    text-align: center;
+    /* position: relative; */
     z-index: 10;
+}
+
+/* --- SCENE OBJECTS --- */
+
+/* Nebulas */
+.nebula-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -20;
+    overflow: hidden;
+}
+
+.nebula-1 {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+    filter: blur(60px);
+    animation: rotateNebula 60s infinite linear;
+    opacity: 0.6;
+}
+
+.nebula-2 {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 60% 40%, rgba(255, 0, 85, 0.08) 0%, transparent 40%);
+    filter: blur(80px);
+    animation: rotateNebula 90s infinite linear reverse;
+    opacity: 0.5;
+    mix-blend-mode: screen;
+}
+
+.nebula-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 80%, rgba(76, 0, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0, 240, 255, 0.1) 0%, transparent 50%);
+    filter: blur(40px);
+    animation: pulseNebula 15s infinite alternate;
+}
+
+/* Stars */
+.star-field {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -18;
+}
+
+.star-layer-1 {
+    animation: twinkle 3s infinite ease-in-out;
+    opacity: 0.9;
+}
+
+.star-layer-2 {
+    animation: twinkle 5s infinite ease-in-out 1s;
+    opacity: 0.7;
+}
+
+.star-layer-3 {
+    animation: twinkle 7s infinite ease-in-out 2s;
+    opacity: 0.5;
+}
+
+.star-layer-4 {
+    animation: twinkle 4s infinite ease-in-out 0.5s;
+    opacity: 0.4;
+}
+
+/* Galaxy */
+.galaxy-container {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 800px;
+    height: 800px;
+    z-index: -19;
+    opacity: 0.3;
+    transform: rotateX(60deg) rotateY(10deg);
+    animation: rotateGalaxy 120s infinite linear;
+}
+
+.galaxy-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #fff 0%, #00d4ff 30%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 80px #00d4ff;
+}
+
+.galaxy-arms {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0%, rgba(0, 212, 255, 0.2) 10%, transparent 30%, rgba(9, 9, 121, 0.2) 50%, transparent 70%);
+    filter: blur(30px);
+}
+
+/* Planets */
+.planet-gas {
+    position: absolute;
+    top: 40%;
+    left: -50px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #aa4b6b, #6b6b83, #3b8d99);
+    box-shadow: inset -40px 0 60px rgba(0, 0, 0, 0.8);
+    z-index: -15;
+    transform: rotate(-15deg);
+    animation: floatPlanet 25s infinite ease-in-out;
+}
+
+.planet-ice {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #e0ffff 0%, #00d4ff 80%, #020024 100%);
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+    z-index: -14;
+    animation: floatPlanet 30s infinite ease-in-out reverse;
+}
+
+.planet-ringed {
+    position: absolute;
+    top: 10%;
+    right: 20%;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF6B6B 0%, #556270 100%);
+    box-shadow: inset -20px -20px 50px rgba(0, 0, 0, 0.6);
+    z-index: -16;
+    animation: floatPlanet 20s infinite ease-in-out;
+}
+
+.planet-ringed::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 180px;
+    height: 50px;
+    border-radius: 50%;
+    border: 8px solid rgba(255, 255, 255, 0.15);
+    border-top-color: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%) rotate(-30deg);
+}
+
+/* Distant Deep Space Planets */
+.planet-distant-1 {
+    position: absolute;
+    top: 15%;
+    left: 40%;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ff9a9e 0%, #fecfef 100%);
+    opacity: 0.6;
+    filter: blur(1px);
+    z-index: -18;
+    animation: floatPlanet 40s infinite ease-in-out;
+}
+
+.planet-distant-2 {
+    position: absolute;
+    top: 70%;
+    left: 80%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #a18cd1 0%, #fbc2eb 100%);
+    opacity: 0.5;
+    filter: blur(2px);
+    z-index: -18;
+    animation: floatPlanet 50s infinite ease-in-out reverse;
+}
+
+/* Objects */
+.ufo-container {
+    position: absolute;
+    top: 15%;
+    left: -200px;
+    z-index: -10;
+    animation: flyUFO 35s infinite linear;
+}
+
+.ufo-body {
+    width: 70px;
+    height: 30px;
+    background: #silver;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to bottom, #eee, #999);
+}
+
+.ufo-dome {
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    width: 40px;
+    height: 25px;
+    background: rgba(0, 255, 128, 0.5);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.ufo-lights span {
+    width: 4px;
+    height: 4px;
+    background: #ff0055;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 8px;
+    animation: blink 0.3s infinite alternate;
+}
+
+.ufo-lights span:nth-child(1) {
+    left: 12px;
+}
+
+.ufo-lights span:nth-child(2) {
+    left: 33px;
+}
+
+.ufo-lights span:nth-child(3) {
+    right: 12px;
+}
+
+.astronaut {
+    position: absolute;
+    bottom: 20%;
+    left: 20%;
+    font-size: 60px;
+    z-index: -5;
+    animation: floatAstronaut 18s infinite ease-in-out;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+}
+
+.satellite-container {
+    position: absolute;
+    top: 30%;
+    right: 40%;
+    z-index: -12;
+    animation: orbitSatellite 90s infinite linear;
+}
+
+.satellite {
+    font-size: 35px;
+    transform: rotate(-45deg);
+    opacity: 0.8;
+}
+
+.rocket-container {
+    position: absolute;
+    bottom: -100px;
+    left: 10%;
+    animation: rocketFly 50s infinite linear;
+    z-index: -8;
+    transform: rotate(45deg);
+}
+
+.rocket {
+    font-size: 70px;
+    filter: drop-shadow(0 0 20px #FF4500);
+}
+
+/* Comets */
+.comet {
+    position: absolute;
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fff);
+    z-index: -15;
+    opacity: 0;
+}
+
+.comet::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #fff, 0 0 20px var(--accent-cyan);
+}
+
+.comet-1 {
+    top: 10%;
+    left: 0;
+    animation: shoot 8s infinite linear;
+    animation-delay: 2s;
+}
+
+.comet-2 {
+    top: 30%;
+    left: 10%;
+    width: 200px;
+    animation: shoot 12s infinite linear;
+    animation-delay: 5s;
+    transform: rotate(15deg);
+}
+
+.comet-3 {
+    top: 60%;
+    left: -50px;
+    width: 100px;
+    animation: shoot 6s infinite linear;
+    animation-delay: 0s;
+    transform: rotate(-10deg);
+}
+
+.comet-4 {
+    top: 80%;
+    left: 20%;
+    width: 120px;
+    animation: shoot 15s infinite linear;
+    animation-delay: 8s;
+    transform: rotate(5deg);
+}
+
+/* Animations */
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.9;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+}
+
+@keyframes pulseNebula {
+    0% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes rotateNebula {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateGalaxy {
+    from {
+        transform: rotateX(60deg) rotateY(10deg) rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateX(60deg) rotateY(10deg) rotateZ(360deg);
+    }
+}
+
+@keyframes floatPlanet {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-25px);
+    }
+}
+
+@keyframes flyUFO {
+    0% {
+        transform: translate(-200px, 50px) rotate(5deg);
+    }
+
+    25% {
+        transform: translate(30vw, 150px) rotate(-5deg);
+    }
+
+    50% {
+        transform: translate(70vw, 50px) rotate(5deg);
+    }
+
+    100% {
+        transform: translate(120vw, 100px) rotate(-5deg);
+    }
+}
+
+@keyframes floatAstronaut {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(10deg);
+    }
+
+    50% {
+        transform: translateY(-40px) rotate(-10deg);
+    }
+}
+
+@keyframes orbitSatellite {
+    from {
+        transform: rotate(0deg) translateX(450px) rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg) translateX(450px) rotate(-360deg);
+    }
+}
+
+@keyframes shoot {
+    0% {
+        transform: translate(-100px, -100px) rotate(45deg);
+        opacity: 1;
+    }
+
+    10% {
+        transform: translate(calc(100vw + 300px), calc(100vh + 300px)) rotate(45deg);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes rocketFly {
+    0% {
+        transform: translate(0, 0) rotate(45deg);
+        bottom: -100px;
+        left: 5%;
+    }
+
+    100% {
+        transform: translate(120vw, -120vh) rotate(45deg);
+        bottom: 100%;
+        left: 80%;
+    }
+}
+
+@keyframes blink {
+    from {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* UI */
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    padding: 2rem;
+    z-index: 50;
 }
 
 .title {
-    font-size: 3rem;
-    font-weight: 300;
-    letter-spacing: 2px;
+    font-size: 5rem;
+    font-weight: 800;
     text-transform: uppercase;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    color: #fff;
+    text-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+    margin: 0;
+    letter-spacing: 6px;
 }
 
 .highlight-text {
-    color: var(--primary-neon);
-    text-shadow: var(--shadow-neon);
-    font-weight: 700;
+    color: var(--accent-cyan);
+    text-shadow: 0 0 25px var(--accent-cyan);
+    display: block;
+    font-size: 0.4em;
+    letter-spacing: 8px;
+    margin-top: 5px;
+    font-weight: 600;
 }
 
-/* Countdown Styles */
 .countdown-wrapper {
     display: flex;
-    gap: 1.5rem;
-    padding: 3rem;
-    flex-wrap: wrap;
+    gap: 2rem;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .time-segment {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 100px;
+    justify-content: center;
+    min-width: 160px;
+    height: 210px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.time-segment:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: var(--accent-cyan);
+    background: rgba(0, 240, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 240, 255, 0.15);
 }
 
 .time-value {
-    font-size: 5rem;
-    font-weight: 700;
-    color: var(--text-color);
-    line-height: 1;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    font-size: 6rem;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .time-label {
     font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-top: 0.5rem;
-    opacity: 0.7;
-}
-
-/* Settings Button */
-.settings-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 100;
-    transition: all 0.3s ease;
-}
-
-.settings-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: rotate(90deg);
-}
-
-/* Modal */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
-}
-
-.modal-content {
-    padding: 2rem;
-    width: 90%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    background: #1a1a20;
-    /* fallback */
-    background: rgba(20, 20, 25, 0.9);
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-input[type="datetime-local"] {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #333;
-    background: #252530;
-    color: white;
-    font-size: 1.1rem;
-    font-family: inherit;
-    color-scheme: dark;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-}
-
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: opacity 0.2s;
-}
-
-.btn-cancel {
-    background: transparent;
-    color: #aaa;
-}
-
-.btn-cancel:hover {
-    color: #fff;
-}
-
-.btn-save {
-    background: var(--primary-neon);
-    color: #000;
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
-}
-
-.btn-save:hover {
+    letter-spacing: 4px;
+    color: var(--accent-cyan);
+    margin-top: 10px;
     opacity: 0.9;
 }
 
-/* Animations */
-@keyframes flicker {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.95;
-    }
+.celebration-message {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2rem 4rem;
+    border-radius: 20px;
+    border: 1px solid var(--accent-gold);
+    box-shadow: 0 0 60px rgba(255, 215, 0, 0.4);
+    animation: popIn 0.8s ease-out;
 }
 
-.flicker-in {
-    animation: flicker 2s infinite;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
     .title {
-        font-size: 2rem;
+        font-size: 3rem;
+    }
+
+    .time-segment {
+        min-width: 90px;
+        height: 130px;
     }
 
     .time-value {
         font-size: 3rem;
     }
 
-    .countdown-wrapper {
-        padding: 1.5rem;
-        gap: 1rem;
+    .galaxy-container {
+        width: 400px;
+        height: 400px;
+        top: 15%;
+        left: auto;
+        right: -100px;
     }
 
-    .time-segment {
-        min-width: 70px;
+    .planet-gas {
+        width: 120px;
+        height: 120px;
+        top: 10%;
+        left: -30px;
+    }
+
+    .planet-ice {
+        width: 80px;
+        height: 80px;
+        bottom: 15%;
+        right: 10%;
     }
 }
