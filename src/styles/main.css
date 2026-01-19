@@ -1,0 +1,240 @@
+:root {
+    --bg-color: #0d0d12;
+    --text-color: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --primary-neon: #00f3ff;
+    --secondary-neon: #bc13fe;
+    --font-main: 'Inter', system-ui, sans-serif;
+    --shadow-neon: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(188, 19, 254, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 20%);
+    overflow: hidden;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Glassmorphism utility */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+}
+
+.container {
+    text-align: center;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.highlight-text {
+    color: var(--primary-neon);
+    text-shadow: var(--shadow-neon);
+    font-weight: 700;
+}
+
+/* Countdown Styles */
+.countdown-wrapper {
+    display: flex;
+    gap: 1.5rem;
+    padding: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.time-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+}
+
+.time-value {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.time-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 0.5rem;
+    opacity: 0.7;
+}
+
+/* Settings Button */
+.settings-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.settings-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(90deg);
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.modal-content {
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #1a1a20;
+    /* fallback */
+    background: rgba(20, 20, 25, 0.9);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+input[type="datetime-local"] {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background: #252530;
+    color: white;
+    font-size: 1.1rem;
+    font-family: inherit;
+    color-scheme: dark;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.btn-cancel {
+    background: transparent;
+    color: #aaa;
+}
+
+.btn-cancel:hover {
+    color: #fff;
+}
+
+.btn-save {
+    background: var(--primary-neon);
+    color: #000;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+}
+
+.btn-save:hover {
+    opacity: 0.9;
+}
+
+/* Animations */
+@keyframes flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.95;
+    }
+}
+
+.flicker-in {
+    animation: flicker 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .time-value {
+        font-size: 3rem;
+    }
+
+    .countdown-wrapper {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .time-segment {
+        min-width: 70px;
+    }
+}
