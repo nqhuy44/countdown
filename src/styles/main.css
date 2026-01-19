@@ -252,7 +252,6 @@ body {
 .ufo-body {
     width: 70px;
     height: 30px;
-    background: #silver;
     border-radius: 50%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     background: linear-gradient(to bottom, #eee, #999);
@@ -541,6 +540,7 @@ body {
     text-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
     margin: 0;
     letter-spacing: 6px;
+    text-align: center;
 }
 
 .highlight-text {
