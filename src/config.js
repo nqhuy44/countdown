@@ -8,7 +8,7 @@ export const CONFIG = {
 
     // The target date and time to count down to
     // Format: YYYY-MM-DDTHH:mm:ss
-    targetDate: "2026-01-19T16:45:00",
+    targetDate: "2026-02-28T17:00:00",
 
     // Message to display when the countdown is finished
     completionTitle: "Unemployed",
